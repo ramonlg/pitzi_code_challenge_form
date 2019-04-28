@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Formulario de Registro de Assinaturas</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="../stylesheets/registration_form.css" />
+  </head>
+
+  <body>
+
+    <div id='registration-form-alert' class="form-status alert"></div>
+
+    <div class="form-style">
+      <form id="signature-registration-form" action="" method="post">
+        <fieldset>
+          <legend><span class="number">1</span> Informações do usuário</legend>
+          <input type="text" name="registration[name]" placeholder="Nome *" required />
+          <input type="text" name="registration[cpf]" placeholder="CPF(somente números) *" required minlength="11" maxlength="11" />
+          <input type="email" name="registration[email]" placeholder="Email *" required />
+        </fieldset>
+
+        <fieldset>
+          <legend><span class="number">2</span> Informações do aparelho</legend>
+          <input type="text" name="registration[order_attributes][phone_model]" placeholder="Modelo do aparelho *" required />
+          <input type="text" name="registration[order_attributes][imei]" placeholder="IMEI(somente números) *" required required minlength="15" maxlength="15/>
+          <input type="text" name="registration[order_attributes][annual_value]" placeholder="Preço anual *" required />
+          <input type="number" name="registration[order_attributes][installments]" min="1" max="12" placeholder="Parcelas">
+        </fieldset>
+
+        <input type="submit" value="Registrar pedido" />
+      </form>
+    </div>
+  </body>
+
+  <script type="text/javascript" src="../javascripts/registration_form.js"></script>
+</html>
