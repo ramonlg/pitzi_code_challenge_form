@@ -11,20 +11,17 @@ form.onsubmit = function (e) {
 
   const data = {
     registration: {
-      name: form.getElementByName('name')
+      name: form.elements['registration[name]'].value,
+      cpf: form.elements['registration[cpf]'].value,
+      email: form.elements['registration[email]'].value,
+      order_attributes: {
+        phone_model: form.elements['registration[order_attributes][phone_model]'].value,
+        imei: form.elements['registration[order_attributes][imei]'].value,
+        annual_value: form.elements['registration[order_attributes][annual_value]'].value,
+        installments: (form.elements['registration[order_attributes][installments]'].value || 1),
+      },
     }
-  };
-
-  //  for (let i = 0, ii = form.length; i < ii; ++i) {
-  //   let input = form[i];
-  //   if (input.name) {
-  //     data[input.name] = input.value;
-  //   }
-  // }
-
-
-  console.log('----------------');
-  console.log(data);
+  }
 
   // Construct an HTTP request
   let xhr = new XMLHttpRequest();
@@ -41,21 +38,14 @@ form.onsubmit = function (e) {
     let responseStatus = responseBody.status;
     let responseContent = JSON.parse(responseBody.response);
 
-    if (responseStatus === 0) {
-      // Failed XmlHttpRequest should be considered an undefined error.
-      formStatus.className += ' alert-danger';
-      formStatus.innerHTML = form.dataset.formError;
-
-    } else if (responseStatus === 400) {
-      // Bad Request
-      formStatus.className += ' alert-danger';
-      formStatus.innerHTML = responseContent.error;
-
-    } else if (responseStatus === 200) {
-      // Success
-      formStatus.className += ' alert-success';
-      formStatus.innerHTML = form.dataset.formSuccess;
-
+    if (responseStatus === 200) {
+      formStatus.className += 'form-status alert alert-success';
+      formStatus.innerHTML = responseContent.message;
+    } else {
+      formStatus.className = 'form-status alert alert-danger';
+      formStatus.innerHTML = (responseContent.message || responseContent.error);
     }
+
+    alert(responseContent.message || responseContent.error);
   };
 };

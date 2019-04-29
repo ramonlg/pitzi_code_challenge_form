@@ -112,10 +112,11 @@
 }
 
 input:invalid {
-  border: 2px dashed red !important;
+  box-shadow: 0 0 5px 1px red !important;
 }
 
-input:valid {
-  border: 2px solid black !important;
+input:focus:invalid {
+  box-shadow: none !important;
 }
+
 </style>
